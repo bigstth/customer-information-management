@@ -2,8 +2,11 @@ import './App.css';
 import './styles/Navbar.css';
 import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './components/pages/Home';
+import PrivateRoute from './guard/auth';
+import Register from './components/forms/Register';
 import Customers from './components/pages/Customers';
+import Customer from './components/pages/Customer';
+import CustomerForm from './components/forms/CustomerForm';
 import ManageCustomers from './components/pages/ManageCustomers';
 import HistoryLogs from './components/pages/HistoryLogs';
 import SignIn from './components/pages/SignIn';
@@ -12,11 +15,32 @@ function App() {
     <Router>
       <Navbar></Navbar>
       <Switch>
-        <Route path="/customers" component={Customers} />
-        <Route path="/manage-customers" component={ManageCustomers} />
-        <Route path="/history-logs" component={HistoryLogs} />
+        <Route path="/register" component={Register} />
+
+        <PrivateRoute path="/customers">
+          <Customers></Customers>
+        </PrivateRoute>
+
+        <PrivateRoute path="/customer/:id">
+          <Customer></Customer>
+        </PrivateRoute>
+
+        <PrivateRoute path="/create-customer">
+          <CustomerForm></CustomerForm>{' '}
+        </PrivateRoute>
+
+        <PrivateRoute path="/manage-customers">
+          <ManageCustomers></ManageCustomers>
+        </PrivateRoute>
+
+        <PrivateRoute path="/history-logs">
+          <HistoryLogs></HistoryLogs>
+        </PrivateRoute>
+
         <Route path="/sign-in" component={SignIn} />
-        <Route path="/" component={Home} />
+        <PrivateRoute path="/">
+          <Customers></Customers>
+        </PrivateRoute>
       </Switch>
     </Router>
   );

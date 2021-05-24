@@ -3,12 +3,6 @@ import { ImHome, ImUsers, ImPencil, ImClock2 } from 'react-icons/im';
 
 export const SidebarData = [
   {
-    title: 'Dashboard',
-    path: '/',
-    icon: <ImHome />,
-    className: 'nav-text',
-  },
-  {
     title: 'Customers',
     path: '/customers',
     icon: <ImUsers />,
