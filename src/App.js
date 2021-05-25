@@ -10,6 +10,7 @@ import CustomerForm from './components/forms/CustomerForm';
 import ManageCustomers from './components/pages/ManageCustomers';
 import HistoryLogs from './components/pages/HistoryLogs';
 import SignIn from './components/pages/SignIn';
+import PDFReport from './report/PDFReport';
 function App() {
   return (
     <Router>
@@ -23,6 +24,10 @@ function App() {
 
         <PrivateRoute path="/customer/:id">
           <Customer></Customer>
+        </PrivateRoute>
+
+        <PrivateRoute path="/pdf/:id">
+          <PDFReport></PDFReport>
         </PrivateRoute>
 
         <PrivateRoute path="/create-customer">

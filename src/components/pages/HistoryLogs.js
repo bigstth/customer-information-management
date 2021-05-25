@@ -9,7 +9,7 @@ const HistoryLogs = () => {
   const token = JSON.parse(localStorage.getItem('token'));
   const [histories, setHistories] = React.useState([]);
 
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   async function getData() {
     try {
       setLoading(true);

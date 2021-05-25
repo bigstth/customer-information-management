@@ -9,7 +9,7 @@ import config from '../../config/config.json';
 import { useHistory } from 'react-router-dom';
 const Customers = () => {
   const [customers, setCustomers] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
   const history = useHistory();
   const token = JSON.parse(localStorage.getItem('token'));
@@ -90,7 +90,6 @@ const Customers = () => {
       setLoading(false);
     }
   }
-
   React.useEffect(() => {
     getData();
   }, []);

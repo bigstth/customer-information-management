@@ -4,10 +4,11 @@ import { ImEye, ImFolderDownload, ImBin2 } from 'react-icons/im';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { format } from 'date-fns';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import config from '../../config/config.json';
 
 const CustomersTable = (props) => {
+  const history = useHistory();
   const token = JSON.parse(localStorage.getItem('token'));
 
   async function deleteCustomer(customerId) {
@@ -94,6 +95,9 @@ const CustomersTable = (props) => {
                     variant="outline-info"
                     size="sm"
                     className="px-3 m-2 d-flex align-items-center"
+                    onClick={() => {
+                      history.push(`/pdf/${customer._id}`);
+                    }}
                   >
                     <ImFolderDownload />
                   </Button>

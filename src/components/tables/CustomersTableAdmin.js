@@ -4,12 +4,12 @@ import { ImEye, ImFolderDownload, ImBin2 } from 'react-icons/im';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { format } from 'date-fns';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import config from '../../config/config.json';
 
 const CustomersTable = (props) => {
   const token = JSON.parse(localStorage.getItem('token'));
-  const profile = JSON.parse(localStorage.getItem('profile'));
+  const history = useHistory();
   async function changeStatus(status) {
     try {
       const [statusName, customerId] = status.split(' ');
@@ -99,7 +99,7 @@ const CustomersTable = (props) => {
     <>
       <Container className="pt-5">
         <h1>Customer Management</h1>
-        <Table className="mt-3" hover responsive>
+        <Table className="mt-3" hover responsive height={400}>
           <thead>
             <tr>
               <th>No.</th>
@@ -167,6 +167,9 @@ const CustomersTable = (props) => {
                       variant="outline-info"
                       size="sm"
                       className="px-3 m-2 d-flex align-items-center"
+                      onClick={() => {
+                        history.push(`/pdf/${customer._id}`);
+                      }}
                     >
                       <ImFolderDownload />
                     </Button>

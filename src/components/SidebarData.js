@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImHome, ImUsers, ImPencil, ImClock2 } from 'react-icons/im';
+import { ImUsers, ImPencil, ImClock2 } from 'react-icons/im';
 
 export const SidebarData = [
   {

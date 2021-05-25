@@ -5,7 +5,7 @@ import axios from 'axios';
 import CustomerTableAdmin from '../tables/CustomersTableAdmin';
 
 const CustomersManagement = () => {
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const profile = JSON.parse(localStorage.getItem('profile'));
   const token = JSON.parse(localStorage.getItem('token'));
   const [customers, setCustomers] = React.useState([]);
@@ -54,7 +54,6 @@ const CustomersManagement = () => {
       <CustomerTableAdmin
         customers={customers}
         reloadData={getData}
-        
       ></CustomerTableAdmin>
     </>
   );

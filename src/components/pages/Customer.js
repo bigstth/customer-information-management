@@ -10,33 +10,30 @@ import ButtonStyle from '../../styles/Button';
 const Customer = () => {
   const { id } = useParams();
   const [customer, setCustomer] = React.useState({});
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
   const history = useHistory();
-  const token = JSON.parse(localStorage.getItem('token'));
 
-  async function getData(customerId) {
-    try {
-      setLoading(true);
-      const res = await axios.get(
-        `${config.API_HOSTNAME}/customers/${customerId}`,
-        {
+  React.useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    async function getData(id) {
+      try {
+        setLoading(true);
+        const res = await axios.get(`${config.API_HOSTNAME}/customers/${id}`, {
           headers: {
             Authorization: 'Bearer ' + token.auth_token,
           },
+        });
+        if (res.status === 200) {
+          setCustomer(res.data.data);
         }
-      );
-      if (res.status === 200) {
-        setCustomer(res.data.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
     }
-  }
 
-  React.useEffect(() => {
     getData(id);
   }, [id]);
 
@@ -64,7 +61,7 @@ const Customer = () => {
       <Container className="text-center pt-5">
         <Jumbotron>
           <h1>
-            {customer.first_name} {customer.last_name}
+            {customer.customer.first_name} {customer.customer.last_name}
           </h1>
           <hr></hr>
 
@@ -84,7 +81,7 @@ const Customer = () => {
                 <b>Name</b>
               </Col>
               <Col lg={4} className="d-flex justify-content-start">
-                {customer.first_name} {customer.last_name}
+                {customer.customer.first_name} {customer.customer.last_name}
               </Col>
             </Row>
             <Row className="justify-content-center">
@@ -92,7 +89,7 @@ const Customer = () => {
                 <b>Email</b>
               </Col>
               <Col lg={4} className="d-flex justify-content-start">
-                {customer.email}
+                {customer.customer.email}
               </Col>
             </Row>
             <Row className="justify-content-center">
@@ -100,7 +97,7 @@ const Customer = () => {
                 <b>Phone number</b>
               </Col>
               <Col lg={4} className="d-flex justify-content-start">
-                {customer.phone_number}
+                {customer.customer.phone_number}
               </Col>
             </Row>
             <Row className="justify-content-center">
@@ -116,7 +113,7 @@ const Customer = () => {
                 <b>Weight</b>
               </Col>
               <Col lg={4} className="d-flex justify-content-start">
-                {customer.weight} kgs.
+                {customer.customer.weight} kgs.
               </Col>
             </Row>
             <Row className="justify-content-center">
@@ -124,7 +121,7 @@ const Customer = () => {
                 <b>Cogenital Disease</b>
               </Col>
               <Col lg={4} className="d-flex justify-content-start">
-                {customer.congenital_disease}
+                {customer.customer.congenital_disease}
               </Col>
             </Row>
             <Row className="justify-content-center">
@@ -132,7 +129,7 @@ const Customer = () => {
                 <b>Drug Allergy</b>
               </Col>
               <Col lg={4} className="d-flex justify-content-start">
-                {customer.drug_allergy}
+                {customer.customer.drug_allergy}
               </Col>
             </Row>
           </div>
@@ -152,7 +149,7 @@ const Customer = () => {
                 <b>Symptom</b>
               </Col>
               <Col lg={4} className="d-flex justify-content-start">
-                {customer.symptom}
+                {customer.customer.symptom}
               </Col>
             </Row>
 
@@ -161,7 +158,7 @@ const Customer = () => {
                 <b>Diagnosis</b>
               </Col>
               <Col lg={4} className="d-flex justify-content-start">
-                {customer.diagnosis}
+                {customer.customer.diagnosis}
               </Col>
             </Row>
 
@@ -170,7 +167,7 @@ const Customer = () => {
                 <b>Caretaker Doctor</b>
               </Col>
               <Col lg={4} className="d-flex justify-content-start">
-                {customer.caretaker_doctor}
+                {customer.customer.caretaker_doctor}
               </Col>
             </Row>
           </div>
@@ -187,7 +184,13 @@ const Customer = () => {
             <span className="pl-2">Back</span>
           </ButtonStyle>
 
-          <ButtonStyle variant="light" className="px-3 m-2">
+          <ButtonStyle
+            variant="light"
+            className="px-3 m-2"
+            onClick={() => {
+              history.push(`/pdf/${customer.customer._id}`);
+            }}
+          >
             <ImFolderDownload></ImFolderDownload>
             <span className="pl-2">Download PDF </span>
           </ButtonStyle>
