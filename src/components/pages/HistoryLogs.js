@@ -29,6 +29,8 @@ const HistoryLogs = () => {
 
   React.useEffect(() => {
     getData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (loading === true) {
     return (

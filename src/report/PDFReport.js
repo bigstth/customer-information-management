@@ -54,6 +54,7 @@ const PDFReport = () => {
 
   React.useEffect(() => {
     getData(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (loading === true) {

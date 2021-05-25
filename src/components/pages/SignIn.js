@@ -19,6 +19,8 @@ const SignIn = () => {
     if (profile) {
       history.replace('customers');
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (e) => {
@@ -104,12 +106,7 @@ const SignIn = () => {
             />
           </Form.Group>
 
-          <ButtonStyle
-            type="submit"
-            variant="light"
-            type="submit"
-            className="w-100"
-          >
+          <ButtonStyle type="submit" variant="light" className="w-100">
             Sign in
           </ButtonStyle>
         </Form>
