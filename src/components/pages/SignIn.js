@@ -5,7 +5,7 @@ import axios from 'axios';
 import config from '../../config/config.json';
 import Swal from 'sweetalert2';
 import { useHistory } from 'react-router-dom';
-
+import { UserStoreContext } from '../../context/UserContext';
 const SignIn = () => {
   const history = useHistory();
   const [loading, setLoading] = React.useState(false);
@@ -13,7 +13,7 @@ const SignIn = () => {
     email: '',
     password: '',
   });
-
+  const userStore = React.useContext(UserStoreContext);
   React.useEffect(() => {
     const profile = JSON.parse(localStorage.getItem('profile'));
     if (profile) {
@@ -54,8 +54,9 @@ const SignIn = () => {
           icon: 'success',
           confirmButtonText: 'OK',
         }).then(() => {
+          const profileData = JSON.parse(localStorage.getItem('profile'));
+          userStore.updateProfile(profileData);
           history.replace('/customers');
-          history.go(0);
         });
       }
     } catch (err) {

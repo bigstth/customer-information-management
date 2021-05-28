@@ -1,6 +1,7 @@
 import './App.css';
 import './styles/Navbar.css';
 import Navbar from './components/Navbar';
+import { UserStoreProvider } from './context/UserContext';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import PrivateRoute from './guard/auth';
 import Register from './components/forms/Register';
@@ -13,41 +14,43 @@ import SignIn from './components/pages/SignIn';
 import PDFReport from './report/PDFReport';
 function App() {
   return (
-    <Router>
-      <Navbar></Navbar>
-      <Switch>
-        <Route path="/register" component={Register} />
+    <UserStoreProvider>
+      <Router>
+        <Navbar></Navbar>
+        <Switch>
+          <Route path="/register" component={Register} />
 
-        <PrivateRoute path="/customers">
-          <Customers></Customers>
-        </PrivateRoute>
+          <PrivateRoute path="/customers">
+            <Customers></Customers>
+          </PrivateRoute>
 
-        <PrivateRoute path="/customer/:id">
-          <Customer></Customer>
-        </PrivateRoute>
+          <PrivateRoute path="/customer/:id">
+            <Customer></Customer>
+          </PrivateRoute>
 
-        <PrivateRoute path="/pdf/:id">
-          <PDFReport></PDFReport>
-        </PrivateRoute>
+          <PrivateRoute path="/pdf/:id">
+            <PDFReport></PDFReport>
+          </PrivateRoute>
 
-        <PrivateRoute path="/create-customer">
-          <CustomerForm></CustomerForm>{' '}
-        </PrivateRoute>
+          <PrivateRoute path="/create-customer">
+            <CustomerForm></CustomerForm>
+          </PrivateRoute>
 
-        <PrivateRoute path="/manage-customers">
-          <ManageCustomers></ManageCustomers>
-        </PrivateRoute>
+          <PrivateRoute path="/manage-customers">
+            <ManageCustomers></ManageCustomers>
+          </PrivateRoute>
 
-        <PrivateRoute path="/history-logs">
-          <HistoryLogs></HistoryLogs>
-        </PrivateRoute>
+          <PrivateRoute path="/history-logs">
+            <HistoryLogs></HistoryLogs>
+          </PrivateRoute>
 
-        <Route path="/sign-in" component={SignIn} />
-        <PrivateRoute path="/">
-          <Customers></Customers>
-        </PrivateRoute>
-      </Switch>
-    </Router>
+          <Route path="/sign-in" component={SignIn} />
+          <PrivateRoute path="/">
+            <Customers></Customers>
+          </PrivateRoute>
+        </Switch>
+      </Router>
+    </UserStoreProvider>
   );
 }
 

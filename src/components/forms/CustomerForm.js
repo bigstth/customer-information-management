@@ -134,6 +134,8 @@ const CustomerForm = () => {
               <Form.Control
                 type="text"
                 name="phoneNumber"
+                maxLength={10}
+                minLength={10}
                 required
                 onChange={handleChange}
               />

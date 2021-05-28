@@ -5,26 +5,29 @@ import SidebarData from './SidebarData';
 import NavbarStyle from './../styles/NavbarStyle';
 import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import { UserStoreContext } from '../context/UserContext';
 const Navbar = () => {
   const history = useHistory();
   const [sidebarStatus, setSidebarStatus] = useState(false);
   const showSidebar = () => setSidebarStatus(!sidebarStatus);
-  const [profile, setProfile] = useState(null);
+
+  const userStore = React.useContext(UserStoreContext);
   const getProfile = () => {
     const profileValue = JSON.parse(localStorage.getItem('profile'));
     if (profileValue) {
-      setProfile(profileValue);
+      userStore.updateProfile(profileValue);
     }
   };
 
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('profile');
+    userStore.updateProfile(null);
     history.replace('/sign-in');
-    history.go(0);
   };
   useEffect(() => {
     getProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
@@ -38,9 +41,9 @@ const Navbar = () => {
           <ImMenu onClick={showSidebar}></ImMenu>
         </NavLink>
         <div>
-          {profile ? (
+          {userStore.profile ? (
             <>
-              <span className="text-light">{profile.full_name}</span>
+              <span className="text-light">{userStore.profile.full_name}</span>
               <Button
                 variant="light"
                 size="sm"
